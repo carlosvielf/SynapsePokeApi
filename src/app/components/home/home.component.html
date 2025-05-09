@@ -1,0 +1,36 @@
+<div class="structure">
+  <div class="d-flex justify-content-center mb-4">
+    <img class="logo" src="assets/logo.png" alt="Logo">
+  </div>
+
+  <div class="search-container d-flex justify-content-center mb-4">
+    <input type="text" [(ngModel)]="searchTerm" (input)="filtrarPokemons()" placeholder="Buscar Pokémon..."
+      class="search-box" />
+  </div>
+
+  <div class="container d-flex flex-wrap justify-content-center gap-3">
+    <div class="card" *ngFor="let pokemon of pokemonsFiltrados" (click)="selecionarPokemon(pokemon)"
+      style="cursor: pointer;">
+      <img class="card-image" [src]="getPokemonImageUrl(pokemon.id)" alt="{{ pokemon.name }}" />
+      <h3 class="card-title text-center">{{ pokemon.name }}</h3>
+    </div>
+  </div>
+</div>
+
+
+<div class="pokemon-details" *ngIf="pokemonSelecionado">
+  <div class="details-card">
+    <h2>{{ pokemonSelecionado.name | titlecase }}</h2>
+    <img [src]="pokemonSelecionado.sprites.front_default" alt="{{ pokemonSelecionado.name }}">
+
+    <p><strong>Altura:</strong> {{ pokemonSelecionado.height }}</p>
+    <p><strong>Peso:</strong> {{ pokemonSelecionado.weight }}</p>
+    <p><strong>Tipos:</strong>
+      <span *ngFor="let tipo of pokemonSelecionado.types">
+        {{ tipo.type.name }}&nbsp;
+      </span>
+    </p>
+
+    <button (click)="fecharDetalhes()">Fechar</button>
+  </div>
+</div>
